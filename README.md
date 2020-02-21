@@ -12,6 +12,11 @@ For nested values, use dot syntax:
 
 `__owner.avatar_url`
 
+For example field names, see the following examples:
+- user: https://api.github.com/users/brianlovin
+- org: https://api.github.com/users/github
+- repo: https://api.github.com/repos/withspectrum/spectrum
+
 ### Running locally
 
 1. Clone the repository: `git clone https://github.com/brianlovin/figma-github-data.git`

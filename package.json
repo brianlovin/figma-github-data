@@ -1,7 +1,7 @@
 {
-	"name": "figma-primer-color-picker",
+	"name": "figma-github-data",
 	"version": "1.0.0",
-	"description": "A better color picker for local styles",
+	"description": "Populate data from GitHub into Figma mocks",
 	"license": "MIT",
 	"scripts": {
 		"build": "/usr/local/bin/node node_modules/.bin/webpack --mode=production",

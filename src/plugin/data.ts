@@ -6,6 +6,7 @@ export const config = {
 export const users = [
   'adrianmg',
   'ampinsk',
+  'ashygee',
   'auareyou',
   'benbalter',
   'binarymuse',

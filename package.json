@@ -30,7 +30,7 @@
 		"tslint": "^5.20.1",
 		"typescript": "^3.8.3",
 		"tslint-react": "^4.2.0",
-		"url-loader": "^3.0.0",
+		"url-loader": "^4.0.0",
 		"webpack": "^4.42.0",
 		"webpack-cli": "^3.3.11"
 	},

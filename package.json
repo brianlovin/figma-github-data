@@ -12,7 +12,7 @@
 		"eslint": "^6.6.0",
 		"fuse.js": "^3.6.1",
 		"react": "^16.13.1",
-		"react-dom": "^16.13.0",
+		"react-dom": "^16.13.1",
 		"rebass": "^4.0.5",
 		"styled-components": "^4.3.2"
 	},

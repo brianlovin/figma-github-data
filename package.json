@@ -17,7 +17,7 @@
 		"styled-components": "^4.3.2"
 	},
 	"devDependencies": {
-		"@types/react": "^16.9.27",
+		"@types/react": "^16.9.29",
 		"@types/react-dom": "^16.9.5",
 		"css-loader": "^3.4.2",
 		"html-webpack-inline-source-plugin": "^0.0.10",

@@ -2359,10 +2359,10 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-webpack-inline-source-plugin@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/html-webpack-inline-source-plugin/-/html-webpack-inline-source-plugin-0.0.10.tgz#89bd5f761e4f16902aa76a44476eb52831c9f7f0"
-  integrity sha512-0ZNU57u7283vrXSF5a4VDnVOMWiSwypKIp1z/XfXWoVHLA1r3Xmyxx5+Lz+mnthz/UvxL1OAf41w5UIF68Jngw==
+html-webpack-inline-source-plugin@^1.0.0-beta.2:
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/html-webpack-inline-source-plugin/-/html-webpack-inline-source-plugin-1.0.0-beta.2.tgz#71a9234c170ef18df6e51f4594a09b540ff03111"
+  integrity sha512-ydsEKdp0tnbmnqRAH2WSSMXerCNYhjes5b79uvP2BU3p6cyk+6ucNMsw5b5xD1QxphgvBBA3QqVmdcpu8QLlRQ==
   dependencies:
     escape-string-regexp "^1.0.5"
     slash "^1.0.0"

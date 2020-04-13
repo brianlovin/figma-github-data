@@ -14,7 +14,7 @@ For nested values, use dot syntax:
 
 For example field names, see the following examples:
 - user: https://api.github.com/users/brianlovin
-- org: https://api.github.com/users/github
+- org: https://api.github.com/orgs/github
 - repo: https://api.github.com/repos/withspectrum/spectrum
 
 ### Running locally

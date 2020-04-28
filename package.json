@@ -21,7 +21,7 @@
 		"@types/react": "^16.9.34",
 		"css-loader": "^3.5.3",
 		"html-webpack-inline-source-plugin": "^1.0.0-beta.2",
-		"lint-staged": "^10.1.7",
+		"lint-staged": "^10.2.0",
 		"html-webpack-plugin": "^4.2.0",
 		"husky": "^4.2.5",
 		"prettier": "^2.0.5",

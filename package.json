@@ -26,7 +26,7 @@
 		"husky": "^4.2.5",
 		"prettier": "^2.0.5",
 		"style-loader": "^1.2.1",
-		"ts-loader": "^7.0.1",
+		"ts-loader": "^7.0.2",
 		"tslint": "^5.20.1",
 		"typescript": "^3.8.3",
 		"tslint-react": "^4.2.0",

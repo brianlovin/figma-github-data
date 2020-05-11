@@ -9,7 +9,7 @@
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' "
 	},
 	"dependencies": {
-		"eslint": "^6.6.0",
+		"eslint": "^7.0.0",
 		"fuse.js": "^5.2.3",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
@@ -18,7 +18,7 @@
 	},
 	"devDependencies": {
 		"@types/react-dom": "^16.9.8",
-		"@types/react": "^16.9.34",
+		"@types/react": "^16.9.35",
 		"css-loader": "^3.5.3",
 		"html-webpack-inline-source-plugin": "^1.0.0-beta.2",
 		"html-webpack-plugin": "^4.3.0",
@@ -26,7 +26,7 @@
 		"husky": "^4.2.5",
 		"prettier": "^2.0.5",
 		"style-loader": "^1.2.1",
-		"ts-loader": "^7.0.3",
+		"ts-loader": "^7.0.4",
 		"tslint": "^5.20.1",
 		"typescript": "^3.8.3",
 		"tslint-react": "^4.2.0",

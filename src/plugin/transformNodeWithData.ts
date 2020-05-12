@@ -89,6 +89,12 @@ export function setBackgroundFillFromHex(layer, hex) {
   layer.fills = [{ type: 'SOLID', color }];
 }
 
+async function setTextCharactersFromDate(layer, dateStr) {
+  const date = new Date(dateStr);
+  const value = `${date.getDate()} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dev'][date.getMonth()]}`;
+  await setTextCharactersFromValue(layer, value);
+}
+
 export async function setTextCharactersFromValue(layer, value) {
   if (typeof value === 'number') {
     value = String(value.toLocaleString());
@@ -142,6 +148,18 @@ async function applyLayerTransformationFromField(layer, field, value?, data?) {
     if (isTextNode(layer)) {
       await setTextFillFromHex(layer, hex);
     }
+  }
+
+  if (field.includes('created_at')) {
+    if (!isTextNode(layer)) return;
+    await setTextCharactersFromDate(layer, value);
+    return;
+  }
+
+  if (field.includes('number')) {
+    if (!isTextNode(layer)) return;
+    await setTextCharactersFromValue(layer, `#${value}`);
+    return;
   }
 
   if (!isTextNode(layer)) return;

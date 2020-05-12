@@ -100,3 +100,7 @@ export const repos = [
   'microsoft/tsdoc',
   'ziishaned/learn-regex',
 ];
+
+export const issuesRepos = ['withspectrum/spectrum', 'facebook/react', 'microsoft/vscode'];
+
+export const pullsRepos = ['withspectrum/spectrum', 'facebook/react', 'microsoft/vscode'];

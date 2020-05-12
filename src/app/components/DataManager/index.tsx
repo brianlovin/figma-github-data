@@ -60,8 +60,8 @@ export default function DataPopulator({ dataPopulatorVariableString }: Props) {
         <button onClick={() => populate({ type: 'issue', variable })} className="button button--secondary">
           Issue
         </button>
-        <button onClick={() => populate({ type: 'pr', variable })} className="button button--secondary">
-          PR
+        <button onClick={() => populate({ type: 'pull', variable })} className="button button--secondary">
+          Pull
         </button>
       </ButtonRow>
 

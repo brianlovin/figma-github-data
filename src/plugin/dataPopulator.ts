@@ -64,7 +64,7 @@ async function fetchAndPopulate(type, variable) {
     case 'issue': {
       return getRandomElementFromArray(await getIssue(variable));
     }
-    case 'pr': {
+    case 'pull': {
       return getRandomElementFromArray(await getPull(variable));
     }
   }

@@ -16,6 +16,8 @@ For example field names, see the following examples:
 - user: https://api.github.com/users/brianlovin
 - org: https://api.github.com/orgs/github
 - repo: https://api.github.com/repos/withspectrum/spectrum
+- issues: https://api.github.com/repos/withspectrum/spectrum/issues
+- pull requests: https://api.github.com/repos/withspectrum/spectrum/pulls
 
 ### Running locally
 

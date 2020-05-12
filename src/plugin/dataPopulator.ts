@@ -1,5 +1,5 @@
 import { isFramelikeNode, getRandomElementFromArray, selectionContainsSettableLayers } from './utils';
-import { users, orgs, repos, config } from './data';
+import { users, orgs, repos, issuesRepos, pullsRepos, config } from './data';
 import transformNodeWithData from './transformNodeWithData';
 
 function appendUrlWithVariable(variable, arr) {
@@ -36,6 +36,20 @@ async function getRepo(variable) {
   return await getDataFromAPI(route);
 }
 
+async function getIssue(variable) {
+  let route = config.apiRoot + `/repos/`;
+  route += appendUrlWithVariable(variable, issuesRepos);
+  route += `/issues`;
+  return await getDataFromAPI(route);
+}
+
+async function getPull(variable) {
+  let route = config.apiRoot + `/repos/`;
+  route += appendUrlWithVariable(variable, pullsRepos);
+  route += `/pulls`;
+  return await getDataFromAPI(route);
+}
+
 async function fetchAndPopulate(type, variable) {
   switch (type) {
     case 'user': {
@@ -46,6 +60,12 @@ async function fetchAndPopulate(type, variable) {
     }
     case 'repo': {
       return await getRepo(variable);
+    }
+    case 'issue': {
+      return getRandomElementFromArray(await getIssue(variable));
+    }
+    case 'pr': {
+      return getRandomElementFromArray(await getPull(variable));
     }
   }
 }

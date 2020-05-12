@@ -4,7 +4,7 @@ async function main() {
   const dataPopulatorVariableString = await 
     figma.clientStorage.getAsync('dataPopulatorVariableString')
 
-  figma.showUI(__html__, { width: 340, height: 108 });
+  figma.showUI(__html__, { width: 400, height: 108 });
   figma.ui.postMessage({
     dataPopulatorVariableString,
   });

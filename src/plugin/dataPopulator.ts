@@ -53,6 +53,8 @@ async function getPull(variable) {
 }
 
 async function getApp(variable) {
+  // In order to GET apps, a custom media type is required
+  // https://developer.github.com/v3/apps/#get-a-single-github-app
   const previewHeaders = {
     headers: {
       Accept: 'application/vnd.github.machine-man-preview+json',

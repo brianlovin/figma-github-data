@@ -47,7 +47,7 @@ export default function DataPopulator({ dataPopulatorVariableString }: Props) {
 
   return (
     <UIManagerAppContainer>
-      <ButtonRow count={5}>
+      <ButtonRow count={3}>
         <button onClick={() => populate({ type: 'user', variable })} className="button button--secondary">
           User
         </button>
@@ -62,6 +62,9 @@ export default function DataPopulator({ dataPopulatorVariableString }: Props) {
         </button>
         <button onClick={() => populate({ type: 'pull', variable })} className="button button--secondary">
           Pull
+        </button>
+        <button onClick={() => populate({ type: 'app', variable })} className="button button--secondary">
+          App
         </button>
       </ButtonRow>
 

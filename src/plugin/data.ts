@@ -104,3 +104,19 @@ export const repos = [
 export const issuesRepos = ['withspectrum/spectrum', 'facebook/react', 'microsoft/vscode'];
 
 export const pullsRepos = ['withspectrum/spectrum', 'facebook/react', 'microsoft/vscode'];
+
+export const apps = [
+  'stale',
+  'github-learning-lab',
+  'app-center',
+  'azure-boards',
+  'azure-pipelines',
+  'codecov',
+  'travis-ci',
+  'instabug',
+  'percy',
+  'devhub-app',
+  'issue-label-bot',
+  'rollbar',
+  'logrocket',
+];

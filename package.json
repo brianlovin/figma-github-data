@@ -28,7 +28,7 @@
 		"style-loader": "^1.2.1",
 		"ts-loader": "^7.0.4",
 		"tslint": "^5.20.1",
-		"typescript": "^3.9.2",
+		"typescript": "^3.9.3",
 		"tslint-react": "^4.2.0",
 		"url-loader": "^4.1.0",
 		"webpack": "^4.43.0",

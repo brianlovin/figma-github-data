@@ -22,7 +22,7 @@
 		"css-loader": "^3.5.3",
 		"html-webpack-inline-source-plugin": "^1.0.0-beta.2",
 		"html-webpack-plugin": "^4.3.0",
-		"lint-staged": "^10.2.4",
+		"lint-staged": "^10.2.6",
 		"husky": "^4.2.5",
 		"prettier": "^2.0.5",
 		"style-loader": "^1.2.1",

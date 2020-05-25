@@ -90,42 +90,38 @@ async function fetchAndPopulate(type, variable) {
   }
 }
 
+const populareNodeWithData = async (node, type, variable) => {
+  if (isFramelikeNode(node)) {
+    if (node.children.every(isFramelikeNode)) {
+      for (const child of node.childrenodes) {
+        await populareNodeWithData(child, type, variable);
+      }
+    } else {
+      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
+    }
+  }
+}
+
 export default async function populateSelectionWithData({ type, variable }) {
   const selection = figma.currentPage.selection;
   if (!selection || selection.length === 0) return figma.notify('No selection');
 
   if (selection.length === 1) {
-    const curr = selection[0] as FrameNode | InstanceNode | ComponentNode;
-
-    // if the user selected a framelike node...
-    if (isFramelikeNode(curr)) {
-      // ...that only contains children that are framelike, they are probably
-      // trying to populate a list of elements with data
-      if (curr.children.every(isFramelikeNode)) {
-        const nodes = curr.children;
-        for (let node of nodes) {
-          await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-        }
-      }
-      // ...the user is just populating a single node, proceed with population
-      else {
-        await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(curr, result));
-      }
-    }
+    await populareNodeWithData(selection[0], type, variable);
   }
 
   // if the user selected multiple elements, and all of them are framelike, populate
   // them each with data
   else if (selection.every(isFramelikeNode)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
+    for (const node of selection) {
+      await populareNodeWithData(node, type, variable);
     }
   }
 
   // some individual layers were selected, populate them
   else if (selectionContainsSettableLayers(selection)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
+    for (const node of selection) {
+      await populareNodeWithData(node, type, variable);
     }
   }
 

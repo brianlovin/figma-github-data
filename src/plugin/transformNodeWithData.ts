@@ -3,13 +3,13 @@ import { config } from './data';
 
 function layerConsumesNestedData(layer) {
   const parts = layer.name.split(' ');
-  return parts.some(part => part.includes(config.settable) && part.includes('.'));
+  return parts.some((part) => part.includes(config.settable) && part.includes('.'));
 }
 
 export function getImageBytesFromUrl(url) {
   figma.ui.postMessage({ type: 'getImageBytes', url });
-  return new Promise(res => {
-    figma.ui.once('message', value => {
+  return new Promise((res) => {
+    figma.ui.once('message', (value) => {
       let data = value as Uint8Array;
       let imageHash = figma.createImage(new Uint8Array(data)).hash;
 
@@ -25,7 +25,10 @@ export function getImageBytesFromUrl(url) {
           tint: 0,
         },
         imageHash,
-        imageTransform: [[1, 0, 0], [0, 1, 0]],
+        imageTransform: [
+          [1, 0, 0],
+          [0, 1, 0],
+        ],
         opacity: 1,
         scaleMode: 'FILL',
         scalingFactor: 0.5,
@@ -91,7 +94,9 @@ export function setBackgroundFillFromHex(layer, hex) {
 
 async function setTextCharactersFromDate(layer, dateStr) {
   const date = new Date(dateStr);
-  const value = `${date.getDate()} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dev'][date.getMonth()]}`;
+  const value = `${date.getDate()} ${
+    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dev'][date.getMonth()]
+  }`;
   await setTextCharactersFromValue(layer, value);
 }
 
@@ -113,13 +118,13 @@ export async function setBackgroundFillFromImageUrl(layer, url) {
 }
 
 export function getColorData() {
-  figma.showUI(__html__, { visible: false })
-  figma.ui.postMessage({ type: 'getColorData' })
-  return new Promise(res => {
-    figma.ui.onmessage = resource => {
-      return res(resource)
-    }
-  })
+  figma.showUI(__html__, { visible: false });
+  figma.ui.postMessage({ type: 'getColorData' });
+  return new Promise((res) => {
+    figma.ui.onmessage = (resource) => {
+      return res(resource);
+    };
+  });
 }
 
 async function getHexFromLanguage(language) {

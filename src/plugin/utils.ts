@@ -29,12 +29,16 @@ export function getRandomElementFromArray(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-export function containsSettableLayers(node: SceneNode): boolean {
-  if (isFramelikeNode(node)) {
-    const frame: FrameNode | ComponentNode | InstanceNode = node as FrameNode;
-    return frame.children.some((child) => child.name.startsWith(config.settable));
+export function containsSettableLayers(nodes: SceneNode[]): boolean {
+  let hasSettableLayer = false;
+  for (const node of nodes) {
+    if (isFramelikeNode(node)) {
+      hasSettableLayer = hasSettableLayer || containsSettableLayers((node as any).children);
+    } else if (isTextNode(node)) {
+      hasSettableLayer = hasSettableLayer || node.name.startsWith(config.settable);
+    }
   }
-  return false;
+  return hasSettableLayer;
 }
 
 export function* walkTree(node) {

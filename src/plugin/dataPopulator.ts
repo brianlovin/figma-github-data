@@ -1,4 +1,10 @@
-import { isFramelikeNode, getRandomElementFromArray, selectionContainsSettableLayers } from './utils';
+import {
+  isFramelikeNode,
+  getRandomElementFromArray,
+  selectionContainsSettableLayers,
+  isTextNode,
+  containsSettableLayers,
+} from './utils';
 import { users, orgs, repos, issuesRepos, pullsRepos, apps, config } from './data';
 import transformNodeWithData from './transformNodeWithData';
 
@@ -106,15 +112,25 @@ const populareNodeWithData = async (node: SceneNode, type, variable) => {
     //   await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
     // }
   } else {
-    if (node.name.startsWith(config.settable)) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    }
+    // if (node.name.startsWith(config.settable)) {
+    await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
+    // }
   }
 };
 
 export default async function populateSelectionWithData({ type, variable }) {
   const selection = figma.currentPage.selection;
   if (!selection || selection.length === 0) return figma.notify('No selection');
+
+  // check if in the selection there is any settable layer
+
+  if (selection.length === 1 && !isFramelikeNode(selection[0]) && !isTextNode(selection[0])) {
+    return figma.notify('Invalid selection');
+  }
+
+  if (!containsSettableLayers(selection as any)) {
+    return figma.notify('No settable layer');
+  }
 
   // for (const node of selection) {
   //   await populareNodeWithData(node, type, variable);

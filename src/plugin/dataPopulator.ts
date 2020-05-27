@@ -97,32 +97,33 @@ async function fetchAndPopulate(type, variable) {
 }
 
 const populareNodeWithData = async (node: SceneNode, type, variable) => {
+  // go down until more than a child has settable layers
   if (isFramelikeNode(node)) {
+    // has children
     const frame = node as FrameNode;
+    let childrenWithSettableLayers = 0;
     for (const child of frame.children) {
-      await populareNodeWithData(child, type, variable);
+      if (containsSettableLayers([child])) {
+        childrenWithSettableLayers++;
+      }
     }
-    // if (node.children.every(isFramelikeNode)) {
-    //   console.log('POPULATE CHILDREN');
-    //   for (const child of node.childrenodes) {
-    //     await populareNodeWithData(child, type, variable);
-    //   }
-    // } else {
-    //   console.log('POPULATE NODE');
-    //   await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    // }
-  } else {
-    // if (node.name.startsWith(config.settable)) {
+    for (const child of frame.children) {
+      if (childrenWithSettableLayers > 1) {
+        // get data
+        await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(child, result));
+      } else {
+        // go down
+        await populareNodeWithData(child, type, variable);
+      }
+    }
+  } else if (isTextNode(node) && node.name.startsWith(config.settable)) {
     await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    // }
   }
 };
 
 export default async function populateSelectionWithData({ type, variable }) {
   const selection = figma.currentPage.selection;
   if (!selection || selection.length === 0) return figma.notify('No selection');
-
-  // check if in the selection there is any settable layer
 
   if (selection.length === 1 && !isFramelikeNode(selection[0]) && !isTextNode(selection[0])) {
     return figma.notify('Invalid selection');
@@ -132,47 +133,12 @@ export default async function populateSelectionWithData({ type, variable }) {
     return figma.notify('No settable layer');
   }
 
-  // for (const node of selection) {
-  //   await populareNodeWithData(node, type, variable);
-  // }
-
-  if (selection.length === 1) {
-    const curr = selection[0] as FrameNode | InstanceNode | ComponentNode;
-
-    // if the user selected a framelike node...
-    if (isFramelikeNode(curr)) {
-      // ...that only contains children that are framelike, they are probably
-      // trying to populate a list of elements with data
-      if (curr.children.every(isFramelikeNode)) {
-        const nodes = curr.children;
-        for (let node of nodes) {
-          await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-        }
-      }
-      // ...the user is just populating a single node, proceed with population
-      else {
-        await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(curr, result));
-      }
-    }
-  }
-
-  // if the user selected multiple elements, and all of them are framelike, populate
-  // them each with data
-  else if (selection.every(isFramelikeNode)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    }
-  }
-
-  // some individual layers were selected, populate them
-  else if (selectionContainsSettableLayers(selection)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    }
-  }
-
-  //
-  else {
-    return figma.notify('Invalid selection');
-  }
+  await populareNodeWithData(
+    {
+      type: 'FRAME',
+      children: selection, // bit dodgy, sorry! - Christian
+    } as SceneNode,
+    type,
+    variable
+  );
 }

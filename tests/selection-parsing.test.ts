@@ -78,6 +78,7 @@ describe('Selection Parsing', () => {
     requestCount = 0;
     figma.currentPage.selection = [createTextLayer('__title')];
     await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(1);
     expect(figma.currentPage.selection[0].characters).toEqual('Cannot login with all social media account');
   });
 
@@ -88,6 +89,7 @@ describe('Selection Parsing', () => {
       createFrameWithSecondaryProperties('Frame 2'),
     ];
     await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(2);
     const frames = figma.currentPage.selection;
 
     let titleNode = frames[0].children[0];
@@ -119,6 +121,7 @@ describe('Selection Parsing', () => {
       },
     ];
     await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(2);
     const frames = figma.currentPage.selection[0].children;
 
     let titleNode = frames[0].children[0];
@@ -156,6 +159,7 @@ describe('Selection Parsing', () => {
       },
     ];
     await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(2);
     const frames = figma.currentPage.selection[0].children[0].children;
 
     let titleNode = frames[0].children[0];
@@ -187,6 +191,7 @@ describe('Selection Parsing', () => {
       },
     ];
     await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(1);
     expect(figma.currentPage.selection[0].children[0].characters).toEqual('Cannot login with all social media account');
   });
 });

@@ -113,16 +113,20 @@ const populateNodeWithData = async (node: SceneNode, type, variable) => {
         childrenWithSettableLayers++;
       }
     }
-    if (childrenWithSettableLayers > 1 && childrenAreUsingDifferentProperties(frame.children)) {
-      await fetchAndPopulateNode(node, type, variable);
-      return;
-    }
-    for (const child of frame.children) {
-      if (childrenWithSettableLayers > 1) {
-        // get data
-        await fetchAndPopulateNode(child, type, variable);
+    if (childrenWithSettableLayers > 1) {
+      // deciding what to do
+      if (childrenAreUsingDifferentProperties(frame.children)) {
+        // do one request
+        await fetchAndPopulateNode(node, type, variable);
       } else {
-        // go down
+        // do one request per child
+        for (const child of frame.children) {
+          await fetchAndPopulateNode(child, type, variable);
+        }
+      }
+    } else {
+      // go down
+      for (const child of frame.children) {
         await populateNodeWithData(child, type, variable);
       }
     }

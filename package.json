@@ -1,48 +1,52 @@
 {
-	"name": "figma-github-data",
-	"version": "1.0.0",
-	"description": "Populate data from GitHub into Figma mocks",
-	"license": "MIT",
-	"scripts": {
-		"build": "/usr/local/bin/node node_modules/.bin/webpack --mode=production",
-		"build:watch": "/usr/local/bin/node node_modules/.bin/webpack --mode=development --watch",
-		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' "
-	},
-	"dependencies": {
-		"eslint": "^7.1.0",
-		"fuse.js": "^6.0.0",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"rebass": "^4.0.5",
-		"styled-components": "^4.3.2"
-	},
-	"devDependencies": {
-		"@types/react-dom": "^16.9.8",
-		"@types/react": "^16.9.35",
-		"css-loader": "^3.5.3",
-		"html-webpack-inline-source-plugin": "^1.0.0-beta.2",
-		"html-webpack-plugin": "^4.3.0",
-		"lint-staged": "^10.2.6",
-		"husky": "^4.2.5",
-		"prettier": "^2.0.5",
-		"style-loader": "^1.2.1",
-		"ts-loader": "^7.0.5",
-		"tslint": "^5.20.1",
-		"typescript": "^3.9.3",
-		"tslint-react": "^4.2.0",
-		"url-loader": "^4.1.0",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.11"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"lint-staged": {
-		"src/**/*.{js,jsx,ts,tsx,css,json}": [
-			"prettier --write",
-			"git add"
-		]
-	}
+  "name": "figma-github-data",
+  "version": "1.0.0",
+  "description": "Populate data from GitHub into Figma mocks",
+  "license": "MIT",
+  "scripts": {
+    "build": "/usr/local/bin/node node_modules/.bin/webpack --mode=production",
+    "build:watch": "/usr/local/bin/node node_modules/.bin/webpack --mode=development --watch",
+    "prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' ",
+    "test": "jest"
+  },
+  "dependencies": {
+    "eslint": "^7.0.0",
+    "fuse.js": "^6.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rebass": "^4.0.5",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "css-loader": "^3.5.3",
+    "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.6",
+    "prettier": "^2.0.5",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^7.0.4",
+    "tslint": "^5.20.1",
+    "tslint-react": "^4.2.0",
+    "typescript": "^3.9.3",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,css,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
 }

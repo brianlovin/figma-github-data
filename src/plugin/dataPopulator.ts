@@ -1,4 +1,12 @@
-import { isFramelikeNode, getRandomElementFromArray, selectionContainsSettableLayers } from './utils';
+import {
+  isFramelikeNode,
+  getRandomElementFromArray,
+  containsSettableLayers,
+  isSettableNode,
+  isTextNode,
+  isValidShapeNode,
+  childrenAreUsingDifferentProperties,
+} from './utils';
 import { users, orgs, repos, issuesRepos, pullsRepos, apps, config } from './data';
 import transformNodeWithData from './transformNodeWithData';
 
@@ -90,47 +98,65 @@ async function fetchAndPopulate(type, variable) {
   }
 }
 
+const fetchAndPopulateNode = async (node: SceneNode, type, variable) => {
+  await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
+};
+
+const populateNodeWithData = async (node: SceneNode, type, variable) => {
+  // go down until more than a child has settable layers
+  if (isFramelikeNode(node)) {
+    // has children
+    const frame = node as FrameNode;
+    let childrenWithSettableLayers = 0;
+    for (const child of frame.children) {
+      if (containsSettableLayers([child])) {
+        childrenWithSettableLayers++;
+      }
+    }
+    if (childrenWithSettableLayers > 1) {
+      // deciding what to do
+      if (childrenAreUsingDifferentProperties(frame.children)) {
+        // do one request
+        await fetchAndPopulateNode(node, type, variable);
+      } else {
+        // do one request per child
+        for (const child of frame.children) {
+          await fetchAndPopulateNode(child, type, variable);
+        }
+      }
+    } else {
+      // go down
+      for (const child of frame.children) {
+        await populateNodeWithData(child, type, variable);
+      }
+    }
+  } else if (isSettableNode(node)) {
+    await fetchAndPopulateNode(node, type, variable);
+  }
+};
+
 export default async function populateSelectionWithData({ type, variable }) {
   const selection = figma.currentPage.selection;
   if (!selection || selection.length === 0) return figma.notify('No selection');
 
   if (selection.length === 1) {
-    const curr = selection[0] as FrameNode | InstanceNode | ComponentNode;
-
-    // if the user selected a framelike node...
-    if (isFramelikeNode(curr)) {
-      // ...that only contains children that are framelike, they are probably
-      // trying to populate a list of elements with data
-      if (curr.children.every(isFramelikeNode)) {
-        const nodes = curr.children;
-        for (let node of nodes) {
-          await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-        }
-      }
-      // ...the user is just populating a single node, proceed with population
-      else {
-        await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(curr, result));
-      }
+    const node = selection[0];
+    if (!isFramelikeNode(node) && !isTextNode(node) && !isValidShapeNode(node)) {
+      return figma.notify('Invalid selection');
     }
   }
 
-  // if the user selected multiple elements, and all of them are framelike, populate
-  // them each with data
-  else if (selection.every(isFramelikeNode)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    }
+  if (!containsSettableLayers(selection as any)) {
+    return figma.notify('No settable layer');
   }
 
-  // some individual layers were selected, populate them
-  else if (selectionContainsSettableLayers(selection)) {
-    for (let node of selection) {
-      await fetchAndPopulate(type, variable).then(async (result) => await transformNodeWithData(node, result));
-    }
-  }
-
-  //
-  else {
-    return figma.notify('Invalid selection');
-  }
+  await populateNodeWithData(
+    {
+      name: 'Container',
+      type: 'FRAME',
+      children: selection, // bit dodgy, sorry! - Christian
+    } as SceneNode,
+    type,
+    variable
+  );
 }

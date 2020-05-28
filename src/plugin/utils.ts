@@ -1,12 +1,16 @@
 import { config } from '../plugin/data';
 
-const validShapeTypes = ['RECTANGLE', 'ELLIPSE', 'POLYGON', 'STAR', 'VECTOR', 'LINE', 'BOOLEAN_OPERATION'];
-export function isShapeNode(node) {
+const validShapeTypes = ['RECTANGLE', 'ELLIPSE', 'POLYGON', 'STAR', 'VECTOR', 'BOOLEAN_OPERATION'];
+export function isValidShapeNode(node: SceneNode): boolean {
   return validShapeTypes.indexOf(node.type) >= 0;
 }
 
-export function isTextNode(node) {
+export function isTextNode(node: SceneNode): boolean {
   return node.type === 'TEXT';
+}
+
+export function isSettableNode(node: SceneNode): boolean {
+  return (isTextNode(node) || isValidShapeNode(node)) && node.name.startsWith(config.settable);
 }
 
 export function isFrameNode(node: SceneNode): boolean {
@@ -34,8 +38,8 @@ export function containsSettableLayers(nodes: SceneNode[]): boolean {
   for (const node of nodes) {
     if (isFramelikeNode(node)) {
       hasSettableLayer = hasSettableLayer || containsSettableLayers((node as any).children);
-    } else if (isTextNode(node)) {
-      hasSettableLayer = hasSettableLayer || node.name.startsWith(config.settable);
+    } else if (isSettableNode(node)) {
+      hasSettableLayer = true;
     }
   }
   return hasSettableLayer;
@@ -50,3 +54,30 @@ export function* walkTree(node) {
     }
   }
 }
+
+const getSettableProperties = (node: SceneNode): string[] => {
+  let properties: string[] = [];
+  if (isFramelikeNode(node)) {
+    const frame = node as FrameNode;
+    for (const child of frame.children) {
+      properties = properties.concat(getSettableProperties(child));
+    }
+  } else if (isSettableNode(node)) {
+    properties.push(node.name);
+  }
+  return properties;
+};
+
+export const childrenAreUsingDifferentProperties = (nodes: readonly SceneNode[]): boolean => {
+  const propertiesUsed: string[] = [];
+  for (const node of nodes) {
+    const properties = getSettableProperties(node);
+    for (const prop of properties) {
+      if (propertiesUsed.includes(prop)) {
+        return false;
+      }
+      propertiesUsed.push(prop);
+    }
+  }
+  return true;
+};

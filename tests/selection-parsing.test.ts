@@ -36,6 +36,7 @@ describe('Selection Parsing', () => {
   it('Should warn when selection is invalid', async () => {
     figma.currentPage.selection = [
       {
+        name: 'line 1',
         type: 'LINE',
       },
     ];
@@ -179,6 +180,27 @@ describe('Selection Parsing', () => {
     expect(dateNode.characters).toEqual('20 May');
     numberNode = frames[1].children[1].children[2];
     expect(numberNode.characters).toEqual('#5356');
+  });
+
+  it('Should populate a multi-selection for a single item', async () => {
+    requestCount = 0;
+    figma.currentPage.selection = [
+      createTextLayer('__title'),
+      {
+        name: 'Frame 1',
+        type: 'FRAME',
+        children: [
+          {
+            name: '__user.login',
+            type: 'TEXT',
+          },
+        ],
+      },
+    ];
+    await populateSelectionWithData({ type: 'issue', variable: '' });
+    expect(requestCount).toEqual(1);
+    expect(figma.currentPage.selection[0].characters).toEqual('Cannot login with all social media account');
+    expect(figma.currentPage.selection[1].children[0].characters).toEqual('itokun99');
   });
 
   it('Should parse properly', async () => {

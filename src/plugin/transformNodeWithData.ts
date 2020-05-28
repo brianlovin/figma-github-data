@@ -1,4 +1,4 @@
-import { walkTree, isShapeNode, isTextNode } from './utils';
+import { walkTree, isValidShapeNode, isTextNode } from './utils';
 import { config } from './data';
 
 function layerConsumesNestedData(layer) {
@@ -135,7 +135,7 @@ async function getHexFromLanguage(language) {
 
 async function applyLayerTransformationFromField(layer, field, value?, data?) {
   if (field.includes('avatar_url')) {
-    if (!isShapeNode(layer)) return;
+    if (!isValidShapeNode(layer)) return;
     await setBackgroundFillFromImageUrl(layer, value);
   }
 
@@ -146,7 +146,7 @@ async function applyLayerTransformationFromField(layer, field, value?, data?) {
 
   if (field.includes('language_color')) {
     const hex = await getHexFromLanguage(data.language);
-    if (isShapeNode(layer)) {
+    if (isValidShapeNode(layer)) {
       await setBackgroundFillFromHex(layer, hex);
     }
 

@@ -3003,10 +3003,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fuse.js@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.0.2.tgz#dad4a0ae20806531499ce0c92a8ccbc1793a352c"
-  integrity sha512-A8cRxrkDt/JZuFDAZyV2g+gNDuFpBkH9tWqLs1qegKWzulEXca+xwKLXpuJTZhf0YDRtDGBRrqBpy1FInE9SPA==
+fuse.js@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.0.3.tgz#6c19f86a08e86a0af8dab9412e5a389d6d4112f9"
+  integrity sha512-h2JtT7vXagF3nMMUslxH6GBbgoemvCfOfjIa9QraKHbzAtT1NyTiP0AHgCQgwSL6H3QrEbEAmQUowsqQeJgIgg==
 
 gauge@~2.7.3:
   version "2.7.4"

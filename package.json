@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "eslint": "^7.2.0",
-    "fuse.js": "^6.2.0",
+    "fuse.js": "^6.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rebass": "^4.0.5",

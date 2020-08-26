@@ -26,7 +26,7 @@
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
-    "lint-staged": "^10.2.12",
+    "lint-staged": "^10.2.13",
     "prettier": "^2.1.1",
     "style-loader": "^1.2.1",
     "ts-jest": "^26.2.0",

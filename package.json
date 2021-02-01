@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "fuse.js": "^6.4.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

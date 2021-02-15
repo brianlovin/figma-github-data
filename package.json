@@ -29,7 +29,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "style-loader": "^2.0.0",
-    "ts-jest": "^26.5.0",
+    "ts-jest": "^26.5.1",
     "ts-loader": "^8.0.17",
     "tslint": "^5.20.1",
     "tslint-react": "^4.2.0",

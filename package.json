@@ -18,7 +18,7 @@
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
+    "@types/jest": "^27.0.2",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "css-loader": "^6.3.0",

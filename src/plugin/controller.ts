@@ -2,6 +2,7 @@ import populateSelectionWithData from './dataPopulator';
 
 async function main() {
   const dataPopulatorVariableString = await figma.clientStorage.getAsync('dataPopulatorVariableString');
+
   figma.showUI(__html__, { width: 400, height: 148 });
   figma.ui.postMessage({
     dataPopulatorVariableString,

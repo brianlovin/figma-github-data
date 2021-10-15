@@ -20,8 +20,11 @@ async function main() {
 
 async function runWithParameters({type, variable = ''}: ParameterValues) {
   figma.showUI(__html__, { visible: false })
-  await populateSelectionWithData({type, variable})
-  figma.closePlugin()
+  try {
+    await populateSelectionWithData({type, variable})
+  } finally {
+    figma.closePlugin()
+  }
 }
 
 figma.on('run', ({  parameters }: RunEvent) => {

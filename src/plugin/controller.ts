@@ -2,7 +2,6 @@ import populateSelectionWithData from './dataPopulator';
 
 async function main() {
   const dataPopulatorVariableString = await figma.clientStorage.getAsync('dataPopulatorVariableString');
-
   figma.showUI(__html__, { width: 400, height: 148 });
   figma.ui.postMessage({
     dataPopulatorVariableString,
@@ -19,4 +18,30 @@ async function main() {
   };
 }
 
-main();
+async function runWithParameters({type, variable = ''}: ParameterValues) {
+  figma.showUI(__html__, { visible: false })
+  await populateSelectionWithData({type, variable})
+  figma.closePlugin()
+}
+
+figma.on('run', ({  parameters }: RunEvent) => {
+  if (parameters) {
+    runWithParameters(parameters)
+  } else {
+    main();
+  }
+})
+
+figma.parameters.on('input', ({query, key, result}: ParameterInputEvent) => {
+  switch (key) {
+    case 'type':
+      const types = [ 'user', 'org', 'repo', 'issue', 'pull', 'app']
+      result.setSuggestions(types.filter(s => s.includes(query)))
+      break
+    case 'variable':
+      result.setSuggestions([])
+      break
+    default:
+      return
+  }
+})

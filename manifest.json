@@ -3,5 +3,19 @@
   "id": "812760301049951522",
   "api": "1.0.0",
   "main": "dist/code.js",
-  "ui": "dist/ui.html"
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "parameterOnly": false,
+  "parameters": [
+    {
+      "name": "Type",
+      "key": "type"
+    },
+    {
+      "name": "Variable",
+      "key": "variable",
+      "allowFreeform": true,
+      "optional": true
+    }
+  ]
 }

@@ -9,6 +9,10 @@
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@figma"
+    ]
   }
 }

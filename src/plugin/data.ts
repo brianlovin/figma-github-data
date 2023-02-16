@@ -7,8 +7,6 @@ export const users = [
   'adrianmg',
   'arisacoba',
   'ampinsk',
-  'ashygee',
-  'auareyou',
   'benbalter',
   'binarymuse',
   'brianlovin',
@@ -35,14 +33,11 @@ export const users = [
   'mxstbr',
   'nplasterer',
   'ohjoycelau',
-  'pmarsceill',
   'rnystrom',
   'shawnbot',
-  'sophshep',
   'superbryntendo',
   'teenage-witch',
   'thedamianhdez',
-  'vdepizzol',
   'zaralogue',
 ];
 
